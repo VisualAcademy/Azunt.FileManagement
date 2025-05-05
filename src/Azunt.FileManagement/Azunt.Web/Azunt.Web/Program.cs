@@ -5,6 +5,7 @@ using Azunt.Web.Data;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Azunt.FileManagement;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,5 +67,8 @@ app.MapRazorComponents<App>()
 
 // Add additional endpoints required by the Identity /Account Razor components.
 app.MapAdditionalIdentityEndpoints();
+
+// Files 테이블 직접 초기화 (마스터 DB 대상)
+FilesTableBuilder.Run(app.Services, forMaster: true);
 
 app.Run();
