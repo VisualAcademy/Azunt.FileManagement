@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Azunt.FileManagement;
 using Azunt.FileManagement.Services;
+using Azunt.Web.Services.FileStorage;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,7 +49,7 @@ var defaultConnStr = builder.Configuration.GetConnectionString("DefaultConnectio
 builder.Services.AddDependencyInjectionContainerForFileApp(defaultConnStr);
 builder.Services.AddTransient<FileAppDbContextFactory>();
 
-builder.Services.AddScoped<IFileStorageService, LocalFileStorageService>();
+builder.Services.AddScoped<IFileStorageService, AzureBlobStorageService>();
 
 var app = builder.Build();
 

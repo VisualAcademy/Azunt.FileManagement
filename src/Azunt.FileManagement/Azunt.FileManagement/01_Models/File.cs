@@ -58,11 +58,21 @@ namespace Azunt.FileManagement
         /// <summary>
         /// 파일 크기 (바이트)
         /// </summary>
-        public int FileSize { get; set; }
+        public int? FileSize { get; set; }
 
         /// <summary>
         /// 다운로드 횟수
         /// </summary>
-        public int DownCount { get; set; }
+        public int? DownCount { get; set; }
+
+        /// <summary>
+        /// 숫자 형식의 외래키? - AppId 형태로 ParentId와 ParentKey 속성은 보조로 만들어 놓은 속성
+        /// </summary>
+        public long? ParentId { get; set; } = default;  // long? 형식으로 변경 가능    
+
+        /// <summary>
+        /// 숫자 형식의 외래키? - AppId 형태로 ParentId와 ParentKey 속성은 보조로 만들어 놓은 속성
+        /// </summary>
+        public string? ParentKey { get; set; } = string.Empty;
     }
 }

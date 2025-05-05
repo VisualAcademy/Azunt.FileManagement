@@ -2,6 +2,7 @@
 using Azure.Storage.Blobs;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using System.Net; // URL 디코딩 및 인코딩을 위한 네임스페이스
 using System.Threading.Tasks;
 
 namespace Azunt.Web.Services.FileStorage
@@ -19,10 +20,14 @@ namespace Azunt.Web.Services.FileStorage
             _containerClient.CreateIfNotExists();
         }
 
+        // 파일 업로드 시 URL 인코딩된 파일명 처리
         public async Task<string> UploadAsync(Stream fileStream, string fileName)
         {
+            // URL 인코딩 처리
+            string encodedFileName = WebUtility.UrlEncode(fileName);
+
             // 파일명 중복 방지 처리
-            string safeFileName = await GetUniqueFileNameAsync(fileName);
+            string safeFileName = await GetUniqueFileNameAsync(encodedFileName);
             var blobClient = _containerClient.GetBlobClient(safeFileName);
 
             // 파일 업로드
@@ -31,6 +36,7 @@ namespace Azunt.Web.Services.FileStorage
             return blobClient.Uri.ToString(); // 전체 URL 반환
         }
 
+        // 파일명을 안전하게 고유하게 만듦 (중복 방지)
         private async Task<string> GetUniqueFileNameAsync(string fileName)
         {
             string baseName = Path.GetFileNameWithoutExtension(fileName);
@@ -48,9 +54,13 @@ namespace Azunt.Web.Services.FileStorage
             return newFileName;
         }
 
+        // 파일 다운로드 시 URL 디코딩된 파일명 처리
         public async Task<Stream> DownloadAsync(string fileName)
         {
-            var blobClient = _containerClient.GetBlobClient(fileName);
+            // URL 디코딩 처리
+            string decodedFileName = WebUtility.UrlDecode(fileName);
+
+            var blobClient = _containerClient.GetBlobClient(decodedFileName);
 
             if (!await blobClient.ExistsAsync())
                 throw new FileNotFoundException($"File not found: {fileName}");
@@ -59,9 +69,13 @@ namespace Azunt.Web.Services.FileStorage
             return response.Value.Content;
         }
 
+        // 파일 삭제 시 URL 디코딩된 파일명 처리
         public Task DeleteAsync(string fileName)
         {
-            var blobClient = _containerClient.GetBlobClient(fileName);
+            // URL 디코딩 처리
+            string decodedFileName = WebUtility.UrlDecode(fileName);
+
+            var blobClient = _containerClient.GetBlobClient(decodedFileName);
             return blobClient.DeleteIfExistsAsync();
         }
     }

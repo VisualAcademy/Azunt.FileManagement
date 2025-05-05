@@ -52,8 +52,8 @@ public partial class ModalForm : ComponentBase
     [Parameter]
     public EventCallback<bool> EditCallback { get; set; }
 
-    [Parameter]
-    public string ParentKey { get; set; } = "";
+    [Parameter] public int ParentId { get; set; } = 0;
+    [Parameter] public string ParentKey { get; set; } = "";
 
     #endregion
 
@@ -109,6 +109,9 @@ public partial class ModalForm : ComponentBase
         ModelSender.Name = ModelEdit.Name;
         ModelSender.CreatedBy = UserName ?? "Anonymous";
         ModelSender.FileName = ModelEdit.FileName;  // 저장된 파일명
+
+        ModelSender.ParentKey = ParentKey;
+        ModelSender.ParentId = ParentId;
 
         if (ModelSender.Id == 0)
         {

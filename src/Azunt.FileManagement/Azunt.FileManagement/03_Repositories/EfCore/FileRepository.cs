@@ -121,6 +121,18 @@ public class FileRepository : IFileRepository
             .Where(m => !m.IsDeleted)
             .AsQueryable();
 
+        #region ParentBy: 특정 부모 키 값(int, string)에 해당하는 리스트인지 확인
+        // ParentBy 
+        if (parentIdentifier is int parentId && parentId != 0)
+        {
+            query = query.Where(m => m.ParentId != null && m.ParentId == parentId);
+        }
+        else if (parentIdentifier is string parentKey && !string.IsNullOrEmpty(parentKey))
+        {
+            query = query.Where(m => m.ParentKey != null && m.ParentKey == parentKey);
+        }
+        #endregion
+
         if (!string.IsNullOrEmpty(searchQuery))
         {
             query = query.Where(m => m.Name != null && m.Name.Contains(searchQuery));
