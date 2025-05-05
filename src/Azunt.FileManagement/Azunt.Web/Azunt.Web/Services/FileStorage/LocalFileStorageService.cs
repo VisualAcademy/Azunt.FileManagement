@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Azunt.FileManagement;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
@@ -16,9 +17,9 @@ namespace Azunt.FileManagement.Services
             _logger = logger;
             _rootPath = Path.Combine(env.WebRootPath, "files", "Files");
 
-            if (!System.IO.Directory.Exists(_rootPath))
+            if (!Directory.Exists(_rootPath))
             {
-                System.IO.Directory.CreateDirectory(_rootPath);
+                Directory.CreateDirectory(_rootPath);
             }
         }
 
@@ -28,7 +29,7 @@ namespace Azunt.FileManagement.Services
             string safeFileName = GetUniqueFileName(fileName);
             string fullPath = Path.Combine(_rootPath, safeFileName);
 
-            using (var file = System.IO.File.Create(fullPath))
+            using (var file = System.IO.File.Create(fullPath)) // System.IO.File 사용
             {
                 await fileStream.CopyToAsync(file);
             }
@@ -44,6 +45,7 @@ namespace Azunt.FileManagement.Services
             string newFileName = fileName;
             int count = 1;
 
+            // System.IO.File 사용하여 중복 파일명 체크
             while (System.IO.File.Exists(Path.Combine(_rootPath, newFileName)))
             {
                 newFileName = $"{baseName}({count}){extension}";
@@ -57,10 +59,10 @@ namespace Azunt.FileManagement.Services
         {
             string fullPath = Path.Combine(_rootPath, fileName);
 
-            if (!System.IO.File.Exists(fullPath))
+            if (!System.IO.File.Exists(fullPath)) // System.IO.File 사용
                 throw new FileNotFoundException($"File not found: {fileName}");
 
-            var stream = System.IO.File.OpenRead(fullPath);
+            var stream = System.IO.File.OpenRead(fullPath); // System.IO.File 사용
             return Task.FromResult<Stream>(stream);
         }
 
@@ -68,9 +70,9 @@ namespace Azunt.FileManagement.Services
         {
             string fullPath = Path.Combine(_rootPath, fileName);
 
-            if (System.IO.File.Exists(fullPath))
+            if (System.IO.File.Exists(fullPath)) // System.IO.File 사용
             {
-                System.IO.File.Delete(fullPath);
+                System.IO.File.Delete(fullPath); // System.IO.File 사용
             }
 
             return Task.CompletedTask;

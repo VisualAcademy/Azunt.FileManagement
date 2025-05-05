@@ -80,7 +80,10 @@
                                 @foreach (var m in models)
                                 {
                                     <tr>
-                                        <td class="text-nowrap">@m.Name</td>
+                                        <td class="text-nowrap">@m.Name
+                                        <a href="@($"/api/FileDownload/{m.FileName}")" target="_blank">@m.FileName</a>
+
+                                        </td>
 
                                         @if (!SimpleMode)
                                         {

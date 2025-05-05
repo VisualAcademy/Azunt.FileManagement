@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Azunt.FileManagement;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.JSInterop;
-using Azunt.FileManagement;
 using Azunt.Web.Components.Pages.Files.Components;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
@@ -34,6 +34,7 @@ public partial class Manage : ComponentBase
     [Inject] public FileAppDbContextFactory DbContextFactory { get; set; } = null!;
     [Inject] public UserManager<ApplicationUser> UserManagerRef { get; set; } = null!;
     [Inject] public AuthenticationStateProvider AuthenticationStateProviderRef { get; set; } = null!;
+    [Inject] private IFileStorageService FileStorage { get; set; } = null!;
     #endregion
 
     #region Properties
@@ -124,7 +125,13 @@ public partial class Manage : ComponentBase
 
     protected async void DeleteClick()
     {
-        var connectionString = Configuration.GetConnectionString("DefaultConnection");
+        if (!string.IsNullOrEmpty(model.FileName))
+        {
+            // 먼저 파일을 삭제
+            await FileStorage.DeleteAsync(model.FileName);
+        }
+
+        // 그 후, 데이터베이스에서 파일 레코드 삭제
         await RepositoryReference.DeleteAsync(model.Id);
         DeleteDialogReference.Hide();
         model = new FileModel();
