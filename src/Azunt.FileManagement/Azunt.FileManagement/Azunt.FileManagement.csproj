@@ -17,7 +17,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="03_Repositories\" />
       <Folder Include="04_Extensions\" />
     </ItemGroup>
 
