@@ -4,9 +4,10 @@
 @namespace Azunt.Web.Pages.Files
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.Web
+@rendermode InteractiveServer
 
-@attribute [Authorize(Roles = "Administrators")]
-
+@* @attribute [Authorize(Roles = "Administrators")] *@
+@* 
 <DulBreadcrumbsSimple>
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
@@ -16,8 +17,8 @@
         <LoginDisplay></LoginDisplay>
     </ol>
 </DulBreadcrumbsSimple>
-
-<DulMainWithCardSimple>
+ *@
+@* <DulMainWithCardSimple> *@
 
     <h3 class="mt-1 mb-1">
         Files
@@ -128,7 +129,7 @@
         </div>
     </div>
 
-</DulMainWithCardSimple>
+@* </DulMainWithCardSimple> *@
 
 <Azunt.Web.Components.Pages.Files.Components.ModalForm @ref="EditorFormReference"
                                                              ModelSender="model"
