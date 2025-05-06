@@ -25,7 +25,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Services\FileStorage\" />
       <Folder Include="wwwroot\files\Files\" />
     </ItemGroup>
 
