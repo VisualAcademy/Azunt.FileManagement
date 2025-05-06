@@ -21,7 +21,7 @@
 
                         <div class="mb-3">
                             <label class="form-label fw-bold">Upload File</label>
-                            <InputFile OnChange="HandleFileChange" class="form-control" />
+                            <Microsoft.AspNetCore.Components.Forms.InputFile OnChange="HandleFileChange" class="form-control" />
                             @if (!string.IsNullOrEmpty(ModelEdit.FileName))
                             {
                                 <div class="form-text mt-1">📎 Selected: <strong>@ModelEdit.FileName</strong></div>
