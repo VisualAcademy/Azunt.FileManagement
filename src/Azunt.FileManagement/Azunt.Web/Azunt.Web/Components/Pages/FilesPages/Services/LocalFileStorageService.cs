@@ -5,7 +5,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Azunt.FileManagement.Services
+namespace Azunt.Web.Components.Pages.FilesPages.Services
 {
     public class LocalFileStorageService : IFileStorageService
     {
@@ -29,7 +29,7 @@ namespace Azunt.FileManagement.Services
             string safeFileName = GetUniqueFileName(fileName);
             string fullPath = Path.Combine(_rootPath, safeFileName);
 
-            using (var file = System.IO.File.Create(fullPath)) // System.IO.FileEntity 사용
+            using (var file = File.Create(fullPath)) // System.IO.FileEntity 사용
             {
                 await fileStream.CopyToAsync(file);
             }
@@ -46,7 +46,7 @@ namespace Azunt.FileManagement.Services
             int count = 1;
 
             // System.IO.FileEntity 사용하여 중복 파일명 체크
-            while (System.IO.File.Exists(Path.Combine(_rootPath, newFileName)))
+            while (File.Exists(Path.Combine(_rootPath, newFileName)))
             {
                 newFileName = $"{baseName}({count}){extension}";
                 count++;
@@ -59,10 +59,10 @@ namespace Azunt.FileManagement.Services
         {
             string fullPath = Path.Combine(_rootPath, fileName);
 
-            if (!System.IO.File.Exists(fullPath)) // System.IO.FileEntity 사용
+            if (!File.Exists(fullPath)) // System.IO.FileEntity 사용
                 throw new FileNotFoundException($"FileEntity not found: {fileName}");
 
-            var stream = System.IO.File.OpenRead(fullPath); // System.IO.FileEntity 사용
+            var stream = File.OpenRead(fullPath); // System.IO.FileEntity 사용
             return Task.FromResult<Stream>(stream);
         }
 
@@ -70,9 +70,9 @@ namespace Azunt.FileManagement.Services
         {
             string fullPath = Path.Combine(_rootPath, fileName);
 
-            if (System.IO.File.Exists(fullPath)) // System.IO.FileEntity 사용
+            if (File.Exists(fullPath)) // System.IO.FileEntity 사용
             {
-                System.IO.File.Delete(fullPath); // System.IO.FileEntity 사용
+                File.Delete(fullPath); // System.IO.FileEntity 사용
             }
 
             return Task.CompletedTask;

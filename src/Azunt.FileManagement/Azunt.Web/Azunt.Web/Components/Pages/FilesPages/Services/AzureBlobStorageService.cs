@@ -5,7 +5,7 @@ using System.IO;
 using System.Net; // URL 디코딩 및 인코딩을 위한 네임스페이스
 using System.Threading.Tasks;
 
-namespace Azunt.Web.Services.FileStorage
+namespace Azunt.Web.Components.Pages.FilesPages.Services
 {
     public class AzureBlobStorageService : IFileStorageService
     {

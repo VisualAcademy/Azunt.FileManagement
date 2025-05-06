@@ -41,7 +41,7 @@ namespace Azunt.FileManagement
         /// 파일업로드 이름
         /// </summary>
         [Required(ErrorMessage = "Name is required.")]
-        [StringLength(100, ErrorMessage = "Name cannot exceed 100 characters.")]
+        [StringLength(255, ErrorMessage = "Name cannot exceed 255 characters.")]
         public string? Name { get; set; }
 
         /// <summary>

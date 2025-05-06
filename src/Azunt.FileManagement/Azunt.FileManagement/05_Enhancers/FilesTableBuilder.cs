@@ -92,16 +92,18 @@ namespace Azunt.FileManagement
                     // Create 'Files' table if it doesn't exist
                     var cmdCreate = new SqlCommand(@"
                         CREATE TABLE [dbo].[Files] (
-                            [Id] BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-                            [Active] BIT NOT NULL DEFAULT(1),
-                            [IsDeleted] BIT NOT NULL DEFAULT(0),
-                            [Created] DATETIMEOFFSET(7) NOT NULL,
-                            [CreatedBy] NVARCHAR(255) NULL,
-                            [Name] NVARCHAR(MAX) NULL,
-                            [DisplayOrder] INT DEFAULT 0 NULL,
-                            [FileName] NVARCHAR(255) NULL,
-                            [FileSize] INT DEFAULT 0 NULL,
-                            [DownCount] INT DEFAULT 0 NULL
+                            [Id] BIGINT IDENTITY(1,1) NOT NULL PRIMARY KEY,                   -- 고유 ID
+                            [Active] BIT NOT NULL DEFAULT(1),                                -- 활성 상태
+                            [IsDeleted] BIT NOT NULL DEFAULT(0),                             -- 소프트 삭제
+                            [Created] DATETIMEOFFSET(7) NOT NULL DEFAULT SYSDATETIMEOFFSET(),-- 생성 일시
+                            [CreatedBy] NVARCHAR(255) NULL,                                  -- 생성자
+                            [Name] NVARCHAR(255) NULL,                                       -- 파일업로드 이름 (255자로 제한)
+                            [DisplayOrder] INT NOT NULL DEFAULT(0),                          -- 정렬 순서
+                            [FileName] NVARCHAR(255) NULL,                                   -- 실제 저장된 파일명
+                            [FileSize] INT NULL,                                             -- 파일 크기 (바이트)
+                            [DownCount] INT NULL,                                            -- 다운로드 횟수
+                            [ParentId] BIGINT NULL,                                          -- 외래키 ID
+                            [ParentKey] NVARCHAR(255) NULL                                   -- 외래키 Key
                         )", connection);
 
                     cmdCreate.ExecuteNonQuery();
