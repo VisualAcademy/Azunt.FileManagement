@@ -9,7 +9,7 @@ namespace Azunt.Web.Components.Pages.Files.Components;
 
 public partial class ModalForm : ComponentBase
 {
-    private IBrowserFile selectedFile;
+    private IBrowserFile selectedFile = default!;
 
     #region Properties
 
@@ -99,7 +99,14 @@ public partial class ModalForm : ComponentBase
         using var stream = selectedFile.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024);
         var fileUrl = await FileStorage.UploadAsync(stream, selectedFile.Name);
 
-        ModelEdit.FileName = Path.GetFileName(fileUrl);  // 중복 처리된 파일명을 저장
+        // 파일명 저장
+        ModelEdit.FileName = Path.GetFileName(fileUrl);
+
+        // 만약 Name이 비어 있으면 FileName을 자동 설정
+        if (string.IsNullOrWhiteSpace(ModelEdit.Name))
+        {
+            ModelEdit.Name = ModelEdit.FileName;
+        }
     }
 
     protected async Task HandleValidSubmit()
@@ -107,8 +114,19 @@ public partial class ModalForm : ComponentBase
         ModelSender.Active = true;
         ModelSender.Name = ModelEdit.Name;
         ModelSender.CreatedBy = UserName ?? "Anonymous";
-        ModelSender.FileName = ModelEdit.FileName;  // 저장된 파일명
 
+        // 기존 파일 삭제 조건: 수정 중이며 파일명이 바뀐 경우
+        bool isFileReplaced = ModelSender.Id > 0 &&
+                              !string.IsNullOrWhiteSpace(ModelSender.FileName) &&
+                              ModelSender.FileName != ModelEdit.FileName;
+
+        if (isFileReplaced)
+        {
+            // 기존 파일 삭제
+            await FileStorage.DeleteAsync(ModelSender.FileName!);
+        }
+
+        ModelSender.FileName = ModelEdit.FileName;
         ModelSender.ParentKey = ParentKey;
         ModelSender.ParentId = ParentId;
 

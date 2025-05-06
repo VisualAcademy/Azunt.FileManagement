@@ -23,18 +23,15 @@
             <div class="table-responsive" style="min-height: 450px;">
                 <table class="table table-bordered table-hover">
                     <colgroup>
+                        <col style="width: 40%;" />    @* Name (가장 넓게) *@
+                        <col style="width: 20%;" />    @* Download *@
                         @if (!SimpleMode)
                         {
-                            <col style="width: 300px;" />
-                            <col style="width: 300px;" />
-                            <col style="width: 200px;" />
-                            <col />
+                            <col style="width: 15%;" /> @* Created *@
+                            <col style="width: 10%;" /> @* Active *@
+                            <col style="width: 5%;" />  @* (빈 열 또는 기타) *@
                         }
-                        else
-                        {
-                            <col />
-                        }
-                        <col style="width: 200px;" />
+                        <col style="width: 15%;" />    @* Action (좁게 설정) *@
                     </colgroup>
                     <thead class="thead-light">
                         <tr>
@@ -71,11 +68,12 @@
                                     <td class="text-nowrap">@m.Name</td>
 
                                     <!-- FileName Link Column -->
-                                    <td class="text-nowrap">
+                                    <td class="text-center text-nowrap">
                                         @if (!string.IsNullOrEmpty(m.FileName))
                                         {
                                             <a href="@($"/api/FileDownload/{System.Net.WebUtility.UrlEncode(m.FileName)}")" target="_blank">
-                                                @System.Net.WebUtility.UrlDecode(m.FileName)  <!-- URL 디코딩된 파일명 출력 -->
+                                                @* @System.Net.WebUtility.UrlDecode(m.FileName)  <!-- URL 디코딩된 파일명 출력 --> *@
+                                                <span class="oi oi-data-transfer-download me-1 text-primary"></span>
                                             </a>
                                         }
                                         else
