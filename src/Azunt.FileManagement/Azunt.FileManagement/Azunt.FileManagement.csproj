@@ -4,6 +4,26 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+
+        <!-- 버전 정보 -->
+        <VersionPrefix>1.0.0</VersionPrefix>
+        <VersionSuffix></VersionSuffix>
+
+        <!-- NuGet 기본 정보 -->
+        <Title>Azunt.FileManagement</Title>
+        <Description>Azunt.FileManagement is a reusable .NET module for managing file uploads and downloads with support for EF Core, Dapper, ADO.NET, Excel export, and both local and Azure Blob Storage.</Description>
+        <PackageTags>Azunt, file, upload, download, EFCore, Dapper, ADO.NET, Blazor, AzureBlob, Excel</PackageTags>
+
+        <Authors>VisualAcademy</Authors>
+        <Company>Hawaso</Company>
+
+        <!-- NuGet 링크 및 저장소 -->
+        <PackageProjectUrl>https://github.com/VisualAcademy/Azunt.FileManagement</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/VisualAcademy/Azunt.FileManagement</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+
+        <!-- 저작권 정보 -->
+        <Copyright>© 2025 Hawaso. All rights reserved.</Copyright>
     </PropertyGroup>
 
     <ItemGroup>
