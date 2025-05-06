@@ -16,7 +16,7 @@ namespace Azunt.Web.Pages.Files;
 
 public partial class Manage : ComponentBase
 {
-    public bool SimpleMode { get; set; } = true;
+    public bool SimpleMode { get; set; } = false;
     private int timeZoneOffsetMinutes;
 
     #region Parameters
