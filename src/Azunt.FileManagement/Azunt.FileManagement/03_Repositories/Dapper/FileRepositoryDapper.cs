@@ -18,7 +18,7 @@ public class FileRepositoryDapper : IFileRepository
 
     private SqlConnection GetConnection() => new(_connectionString);
 
-    public async Task<File> AddAsync(File model)
+    public async Task<FileEntity> AddAsync(FileEntity model)
     {
         const string sql = @"
             INSERT INTO Files (Active, Created, CreatedBy, Name, IsDeleted)
@@ -32,7 +32,7 @@ public class FileRepositoryDapper : IFileRepository
         return model;
     }
 
-    public async Task<IEnumerable<File>> GetAllAsync()
+    public async Task<IEnumerable<FileEntity>> GetAllAsync()
     {
         const string sql = @"
             SELECT Id, Active, Created, CreatedBy, Name 
@@ -41,10 +41,10 @@ public class FileRepositoryDapper : IFileRepository
             ORDER BY Id DESC";
 
         using var conn = GetConnection();
-        return await conn.QueryAsync<File>(sql);
+        return await conn.QueryAsync<FileEntity>(sql);
     }
 
-    public async Task<File> GetByIdAsync(long id)
+    public async Task<FileEntity> GetByIdAsync(long id)
     {
         const string sql = @"
             SELECT Id, Active, Created, CreatedBy, Name 
@@ -52,10 +52,10 @@ public class FileRepositoryDapper : IFileRepository
             WHERE Id = @Id AND IsDeleted = 0";
 
         using var conn = GetConnection();
-        return await conn.QuerySingleOrDefaultAsync<File>(sql, new { Id = id }) ?? new File();
+        return await conn.QuerySingleOrDefaultAsync<FileEntity>(sql, new { Id = id }) ?? new FileEntity();
     }
 
-    public async Task<bool> UpdateAsync(File model)
+    public async Task<bool> UpdateAsync(FileEntity model)
     {
         const string sql = @"
             UPDATE Files SET
@@ -79,7 +79,7 @@ public class FileRepositoryDapper : IFileRepository
         return affected > 0;
     }
 
-    public async Task<Azunt.Models.Common.ArticleSet<File, int>> GetAllAsync<TParentIdentifier>(
+    public async Task<Azunt.Models.Common.ArticleSet<FileEntity, int>> GetAllAsync<TParentIdentifier>(
         int pageIndex, int pageSize, string searchField, string searchQuery, string sortOrder, TParentIdentifier parentIdentifier)
     {
         var all = await GetAllAsync();
@@ -92,10 +92,10 @@ public class FileRepositoryDapper : IFileRepository
             .Take(pageSize)
             .ToList();
 
-        return new Azunt.Models.Common.ArticleSet<File, int>(paged, filtered.Count());
+        return new Azunt.Models.Common.ArticleSet<FileEntity, int>(paged, filtered.Count());
     }
 
-    public async Task<Azunt.Models.Common.ArticleSet<File, long>> GetAllAsync<TParentIdentifier>(FilterOptions<TParentIdentifier> options)
+    public async Task<Azunt.Models.Common.ArticleSet<FileEntity, long>> GetAllAsync<TParentIdentifier>(FilterOptions<TParentIdentifier> options)
     {
         var all = await GetAllAsync();
         var filtered = all
@@ -108,7 +108,7 @@ public class FileRepositoryDapper : IFileRepository
             .Take(options.PageSize)
             .ToList();
 
-        return new Azunt.Models.Common.ArticleSet<File, long>(paged, filtered.Count);
+        return new Azunt.Models.Common.ArticleSet<FileEntity, long>(paged, filtered.Count);
     }
 
     public async Task<bool> MoveUpAsync(long id)

@@ -12,11 +12,11 @@ namespace Azunt.FileManagement
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<File>()
+            modelBuilder.Entity<FileEntity>()
                 .Property(m => m.Created)
                 .HasDefaultValueSql("GetDate()");
         }
 
-        public DbSet<File> Files { get; set; } = null!;
+        public DbSet<FileEntity> Files { get; set; } = null!;
     }
 }

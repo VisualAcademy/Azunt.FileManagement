@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using File = Azunt.FileManagement.File;
 
 namespace Azunt.Web.Components.Pages.Files.Components;
 
@@ -42,9 +41,9 @@ public partial class ModalForm : ComponentBase
     public RenderFragment EditorFormTitle { get; set; } = null!;
 
     [Parameter]
-    public File ModelSender { get; set; } = null!;
+    public FileEntity ModelSender { get; set; } = null!;
 
-    public File ModelEdit { get; set; } = null!;
+    public FileEntity ModelEdit { get; set; } = null!;
 
     [Parameter]
     public Action CreateCallback { get; set; } = null!;
@@ -73,7 +72,7 @@ public partial class ModalForm : ComponentBase
     {
         if (ModelSender != null)
         {
-            ModelEdit = new File
+            ModelEdit = new FileEntity
             {
                 Id = ModelSender.Id,
                 Name = ModelSender.Name,
@@ -85,7 +84,7 @@ public partial class ModalForm : ComponentBase
         }
         else
         {
-            ModelEdit = new File();
+            ModelEdit = new FileEntity();
         }
     }
 

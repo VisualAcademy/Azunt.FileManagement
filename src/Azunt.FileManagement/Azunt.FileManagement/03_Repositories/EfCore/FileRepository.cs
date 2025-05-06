@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Azunt.FileManagement;
 
 /// <summary>
-/// File 테이블에 대한 Entity Framework Core 기반 리포지토리 구현체입니다.
+/// FileEntity 테이블에 대한 Entity Framework Core 기반 리포지토리 구현체입니다.
 /// Blazor Server 회로 유지 이슈를 피하고, 멀티테넌트 연결 문자열 지원을 위해 팩터리 사용.
 /// </summary>
 public class FileRepository : IFileRepository
@@ -42,7 +42,7 @@ public class FileRepository : IFileRepository
             ? _factory.CreateDbContext()
             : _factory.CreateDbContext(_connectionString);
 
-    public async Task<File> AddAsyncDefault(File model)
+    public async Task<FileEntity> AddAsyncDefault(FileEntity model)
     {
         await using var context = CreateContext();
         model.Created = DateTime.UtcNow;
@@ -52,7 +52,7 @@ public class FileRepository : IFileRepository
         return model;
     }
 
-    public async Task<File> AddAsync(File model)
+    public async Task<FileEntity> AddAsync(FileEntity model)
     {
         await using var context = CreateContext();
         model.Created = DateTime.UtcNow;
@@ -70,7 +70,7 @@ public class FileRepository : IFileRepository
         return model;
     }
 
-    public async Task<IEnumerable<File>> GetAllAsync()
+    public async Task<IEnumerable<FileEntity>> GetAllAsync()
     {
         await using var context = CreateContext();
         return await context.Files
@@ -80,16 +80,16 @@ public class FileRepository : IFileRepository
             .ToListAsync();
     }
 
-    public async Task<File> GetByIdAsync(long id)
+    public async Task<FileEntity> GetByIdAsync(long id)
     {
         await using var context = CreateContext();
         return await context.Files
             .Where(m => m.Id == id && !m.IsDeleted)
             .SingleOrDefaultAsync()
-            ?? new File();
+            ?? new FileEntity();
     }
 
-    public async Task<bool> UpdateAsync(File model)
+    public async Task<bool> UpdateAsync(FileEntity model)
     {
         await using var context = CreateContext();
         context.Attach(model);
@@ -108,7 +108,7 @@ public class FileRepository : IFileRepository
         return await context.SaveChangesAsync() > 0;
     }
 
-    public async Task<Azunt.Models.Common.ArticleSet<File, int>> GetAllAsync<TParentIdentifier>(
+    public async Task<Azunt.Models.Common.ArticleSet<FileEntity, int>> GetAllAsync<TParentIdentifier>(
         int pageIndex,
         int pageSize,
         string searchField,
@@ -152,10 +152,10 @@ public class FileRepository : IFileRepository
             .Take(pageSize)
             .ToListAsync();
 
-        return new Azunt.Models.Common.ArticleSet<File, int>(items, totalCount);
+        return new Azunt.Models.Common.ArticleSet<FileEntity, int>(items, totalCount);
     }
 
-    public async Task<Azunt.Models.Common.ArticleSet<File, long>> GetAllAsync<TParentIdentifier>(
+    public async Task<Azunt.Models.Common.ArticleSet<FileEntity, long>> GetAllAsync<TParentIdentifier>(
         FilterOptions<TParentIdentifier> options)
     {
         await using var context = CreateContext();
@@ -175,7 +175,7 @@ public class FileRepository : IFileRepository
             .Take(options.PageSize)
             .ToListAsync();
 
-        return new Azunt.Models.Common.ArticleSet<File, long>(items, totalCount);
+        return new Azunt.Models.Common.ArticleSet<FileEntity, long>(items, totalCount);
     }
 
     public async Task<bool> MoveUpAsync(long id)

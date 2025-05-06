@@ -63,7 +63,7 @@ namespace Azunt.Web.Services.FileStorage
             var blobClient = _containerClient.GetBlobClient(decodedFileName);
 
             if (!await blobClient.ExistsAsync())
-                throw new FileNotFoundException($"File not found: {fileName}");
+                throw new FileNotFoundException($"FileEntity not found: {fileName}");
 
             var response = await blobClient.DownloadAsync();
             return response.Value.Content;

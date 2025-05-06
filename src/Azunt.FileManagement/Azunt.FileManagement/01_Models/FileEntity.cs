@@ -5,10 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Azunt.FileManagement
 {
     /// <summary>
-    /// Files 테이블과 매핑되는 파일업로드(File) 엔터티 클래스입니다.
+    /// Files 테이블과 매핑되는 파일업로드(FileEntity) 엔터티 클래스입니다.
     /// </summary>
     [Table("Files")]
-    public class File
+    public class FileEntity
     {
         /// <summary>
         /// 파일업로드 고유 아이디 (자동 증가)

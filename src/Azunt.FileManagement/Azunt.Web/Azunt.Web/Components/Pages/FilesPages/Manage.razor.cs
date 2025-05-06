@@ -10,7 +10,7 @@ using System.Linq;
 using System;
 using System.Threading.Tasks;
 using Azunt.Web.Data;
-using FileModel = Azunt.FileManagement.File;
+using FileModel = Azunt.FileManagement.FileEntity;
 
 namespace Azunt.Web.Pages.Files;
 

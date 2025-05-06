@@ -3,8 +3,8 @@
 namespace Azunt.FileManagement;
 
 /// <summary>
-/// 기본 CRUD 작업을 위한 File 전용 저장소 인터페이스
+/// 기본 CRUD 작업을 위한 FileEntity 전용 저장소 인터페이스
 /// </summary>
-public interface IFileBaseRepository : IRepositoryBase<File, long>
+public interface IFileBaseRepository : IRepositoryBase<FileEntity, long>
 {
 }

@@ -87,7 +87,7 @@ namespace Azunt.Apis.Files
             }
             catch (FileNotFoundException)
             {
-                return NotFound($"File not found: {fileName}");
+                return NotFound($"FileEntity not found: {fileName}");
             }
             catch (Exception ex)
             {

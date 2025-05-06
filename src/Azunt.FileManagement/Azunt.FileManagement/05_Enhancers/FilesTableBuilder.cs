@@ -230,8 +230,8 @@ namespace Azunt.FileManagement
                     var cmdInsertDefaults = new SqlCommand(@"
                         INSERT INTO [dbo].[Files] (Active, IsDeleted, Created, CreatedBy, Name, DisplayOrder)
                         VALUES
-                            (1, 0, SYSDATETIMEOFFSET(), 'System', 'Initial File 1', 1),
-                            (1, 0, SYSDATETIMEOFFSET(), 'System', 'Initial File 2', 2)", connection);
+                            (1, 0, SYSDATETIMEOFFSET(), 'System', 'Initial FileEntity 1', 1),
+                            (1, 0, SYSDATETIMEOFFSET(), 'System', 'Initial FileEntity 2', 2)", connection);
 
                     int inserted = cmdInsertDefaults.ExecuteNonQuery();
                     _logger.LogInformation($"Files default data inserted: {inserted} rows.");
