@@ -24,6 +24,7 @@ public partial class Manage : ComponentBase
     [Parameter] public string ParentKey { get; set; } = "";
     [Parameter] public string UserId { get; set; } = "";
     [Parameter] public string UserName { get; set; } = "";
+    [Parameter] public string Category { get; set; } = "";
     #endregion
 
     #region Injectors
@@ -78,8 +79,8 @@ public partial class Manage : ComponentBase
     private async Task DisplayData()
     {
         var articleSet = ParentKey != ""
-            ? await RepositoryReference.GetAllAsync<string>(pager.PageIndex, pager.PageSize, "", searchQuery, sortOrder, ParentKey)
-            : await RepositoryReference.GetAllAsync<int>(pager.PageIndex, pager.PageSize, "", searchQuery, sortOrder, ParentId);
+            ? await RepositoryReference.GetAllAsync<string>(pager.PageIndex, pager.PageSize, "", searchQuery, sortOrder, ParentKey, Category)
+            : await RepositoryReference.GetAllAsync<int>(pager.PageIndex, pager.PageSize, "", searchQuery, sortOrder, ParentId, Category);
 
         pager.RecordCount = articleSet.TotalCount;
         models = articleSet.Items.ToList();

@@ -1,5 +1,6 @@
 ﻿@page "/Files"
 @page "/Files/Manage"
+@page "/Files/Manage/{Category?}"
 
 @namespace Azunt.Web.Pages.Files
 @using Microsoft.AspNetCore.Authorization
@@ -126,7 +127,7 @@
     </div>
 </div>
 
-<Azunt.Web.Components.Pages.Files.Components.ModalForm @ref="EditorFormReference" ModelSender="model" CreateCallback="CreateOrEdit" EditCallback="CreateOrEdit" UserName="@UserName" ParentId="@ParentId" ParentKey="@ParentKey">
+<Azunt.Web.Components.Pages.Files.Components.ModalForm @ref="EditorFormReference" ModelSender="model" CreateCallback="CreateOrEdit" EditCallback="CreateOrEdit" UserName="@UserName" ParentId="@ParentId" ParentKey="@ParentKey" Category="@Category">
     <EditorFormTitle>@EditorFormTitle</EditorFormTitle>
 </Azunt.Web.Components.Pages.Files.Components.ModalForm>
 

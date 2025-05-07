@@ -33,27 +33,17 @@ public partial class ModalForm : ComponentBase
     #endregion
 
     #region Parameters
-
-    [Parameter]
-    public string UserName { get; set; } = "";
-
-    [Parameter]
-    public RenderFragment EditorFormTitle { get; set; } = null!;
-
-    [Parameter]
-    public FileEntity ModelSender { get; set; } = null!;
+    [Parameter] public string UserName { get; set; } = "";
+    [Parameter] public RenderFragment EditorFormTitle { get; set; } = null!;
+    [Parameter] public FileEntity ModelSender { get; set; } = null!;
 
     public FileEntity ModelEdit { get; set; } = null!;
 
-    [Parameter]
-    public Action CreateCallback { get; set; } = null!;
-
-    [Parameter]
-    public EventCallback<bool> EditCallback { get; set; }
-
+    [Parameter] public Action CreateCallback { get; set; } = null!;
+    [Parameter] public EventCallback<bool> EditCallback { get; set; }
     [Parameter] public int ParentId { get; set; } = 0;
     [Parameter] public string ParentKey { get; set; } = "";
-
+    [Parameter] public string Category { get; set; } = "";
     #endregion
 
     #region Injectors
@@ -129,6 +119,7 @@ public partial class ModalForm : ComponentBase
         ModelSender.FileName = ModelEdit.FileName;
         ModelSender.ParentKey = ParentKey;
         ModelSender.ParentId = ParentId;
+        ModelSender.Category = Category;
 
         if (ModelSender.Id == 0)
         {
