@@ -47,6 +47,9 @@ public class FileRepository : IFileRepository
         await using var context = CreateContext();
         model.Created = DateTime.UtcNow;
         model.IsDeleted = false;
+
+        //model.Category = model.Category ?? "Files";
+
         context.Files.Add(model);
         await context.SaveChangesAsync();
         return model;
@@ -64,6 +67,8 @@ public class FileRepository : IFileRepository
             .MaxAsync(m => (int?)m.DisplayOrder) ?? 0;
 
         model.DisplayOrder = maxDisplayOrder + 1;
+
+        //model.Category = model.Category ?? "Files";
 
         context.Files.Add(model);
         await context.SaveChangesAsync();
@@ -114,7 +119,8 @@ public class FileRepository : IFileRepository
         string searchField,
         string searchQuery,
         string sortOrder,
-        TParentIdentifier parentIdentifier)
+        TParentIdentifier parentIdentifier,
+        string category = "")
     {
         await using var context = CreateContext();
         var query = context.Files
@@ -122,7 +128,6 @@ public class FileRepository : IFileRepository
             .AsQueryable();
 
         #region ParentBy: 특정 부모 키 값(int, string)에 해당하는 리스트인지 확인
-        // ParentBy 
         if (parentIdentifier is int parentId && parentId != 0)
         {
             query = query.Where(m => m.ParentId != null && m.ParentId == parentId);
@@ -133,17 +138,25 @@ public class FileRepository : IFileRepository
         }
         #endregion
 
-        if (!string.IsNullOrEmpty(searchQuery))
+        // 검색어 조건
+        if (!string.IsNullOrWhiteSpace(searchQuery))
         {
             query = query.Where(m => m.Name != null && m.Name.Contains(searchQuery));
         }
 
+        // 카테고리 조건 추가
+        if (!string.IsNullOrWhiteSpace(category))
+        {
+            query = query.Where(m => m.Category == category);
+        }
+
+        // 정렬
         query = sortOrder switch
         {
             "Name" => query.OrderBy(m => m.Name),
             "NameDesc" => query.OrderByDescending(m => m.Name),
             "DisplayOrder" => query.OrderBy(m => m.DisplayOrder),
-            _ => query.OrderBy(m => m.DisplayOrder) // 기본 정렬도 DisplayOrder
+            _ => query.OrderBy(m => m.DisplayOrder)
         };
 
         var totalCount = await query.CountAsync();

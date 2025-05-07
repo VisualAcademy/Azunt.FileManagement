@@ -118,19 +118,36 @@ public class FileRepositoryAdoNet : IFileRepository
     }
 
     public async Task<Azunt.Models.Common.ArticleSet<FileEntity, int>> GetAllAsync<TParentIdentifier>(
-        int pageIndex, int pageSize, string searchField, string searchQuery, string sortOrder, TParentIdentifier parentIdentifier)
+        int pageIndex,
+        int pageSize,
+        string searchField,
+        string searchQuery,
+        string sortOrder,
+        TParentIdentifier parentIdentifier,
+        string category = "")
     {
         var all = await GetAllAsync();
-        var filtered = string.IsNullOrWhiteSpace(searchQuery)
-            ? all
-            : all.Where(m => m.Name != null && m.Name.Contains(searchQuery)).ToList();
 
-        var paged = filtered
+        var filtered = all.AsQueryable();
+
+        // 검색어 필터
+        if (!string.IsNullOrWhiteSpace(searchQuery))
+        {
+            filtered = filtered.Where(m => m.Name != null && m.Name.Contains(searchQuery));
+        }
+
+        // 카테고리 필터
+        if (!string.IsNullOrWhiteSpace(category))
+        {
+            filtered = filtered.Where(m => m.Category == category);
+        }
+
+        var resultItems = filtered
             .Skip(pageIndex * pageSize)
             .Take(pageSize)
             .ToList();
 
-        return new Azunt.Models.Common.ArticleSet<FileEntity, int>(paged, filtered.Count());
+        return new Azunt.Models.Common.ArticleSet<FileEntity, int>(resultItems, filtered.Count());
     }
 
     public async Task<Azunt.Models.Common.ArticleSet<FileEntity, long>> GetAllAsync<TParentIdentifier>(FilterOptions<TParentIdentifier> options)

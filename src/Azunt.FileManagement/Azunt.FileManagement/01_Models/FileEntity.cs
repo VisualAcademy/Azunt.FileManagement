@@ -74,5 +74,7 @@ namespace Azunt.FileManagement
         /// 숫자 형식의 외래키? - AppId 형태로 ParentId와 ParentKey 속성은 보조로 만들어 놓은 속성
         /// </summary>
         public string? ParentKey { get; set; } = string.Empty;
+
+        public string? Category { get; set; }
     }
 }

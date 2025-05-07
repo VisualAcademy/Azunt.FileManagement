@@ -80,12 +80,27 @@ public class FileRepositoryDapper : IFileRepository
     }
 
     public async Task<Azunt.Models.Common.ArticleSet<FileEntity, int>> GetAllAsync<TParentIdentifier>(
-        int pageIndex, int pageSize, string searchField, string searchQuery, string sortOrder, TParentIdentifier parentIdentifier)
+        int pageIndex,
+        int pageSize,
+        string searchField,
+        string searchQuery,
+        string sortOrder,
+        TParentIdentifier parentIdentifier,
+        string category = "")
     {
         var all = await GetAllAsync();
-        var filtered = string.IsNullOrWhiteSpace(searchQuery)
-            ? all
-            : all.Where(m => m.Name != null && m.Name.Contains(searchQuery)).ToList();
+
+        var filtered = all.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(searchQuery))
+        {
+            filtered = filtered.Where(m => m.Name != null && m.Name.Contains(searchQuery));
+        }
+
+        if (!string.IsNullOrWhiteSpace(category))
+        {
+            filtered = filtered.Where(m => m.Category == category);
+        }
 
         var paged = filtered
             .Skip(pageIndex * pageSize)

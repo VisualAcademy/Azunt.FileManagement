@@ -98,6 +98,7 @@ namespace Azunt.FileManagement
                             [Created] DATETIMEOFFSET(7) NOT NULL DEFAULT SYSDATETIMEOFFSET(),-- 생성 일시
                             [CreatedBy] NVARCHAR(255) NULL,                                  -- 생성자
                             [Name] NVARCHAR(255) NULL,                                       -- 파일업로드 이름 (255자로 제한)
+                            [Category] NVARCHAR(255) NULL DEFAULT('Free'),                   -- 카테고리 추가 (초기값 Free)
                             [DisplayOrder] INT NOT NULL DEFAULT(0),                          -- 정렬 순서
                             [FileName] NVARCHAR(255) NULL,                                   -- 실제 저장된 파일명
                             [FileSize] INT NULL,                                             -- 파일 크기 (바이트)
