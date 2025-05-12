@@ -37,7 +37,7 @@
                     <thead class="thead-light">
                         <tr>
                             <th class="text-center text-nowrap" @onclick="SortByName" style="cursor: pointer;">
-                                Name <Azunt.Web.Components.Pages.Files.Components.SortOrderArrow SortColumn="Name" SortOrder="@sortOrder" />
+                                Name <Azunt.Components.Sorting.SortOrderArrow SortColumn="Name" SortOrder="@sortOrder"></Azunt.Components.Sorting.SortOrderArrow>
                             </th>
 
                             <th class="text-center">Download</th>
@@ -123,7 +123,7 @@
     </div>
 
     <div class="col-md-12">
-        <Azunt.Web.Components.Pages.Files.Components.SearchBox placeholder="Search Files..." SearchQueryChanged="Search" />
+        <Azunt.Components.Search.SearchBox placeholder="Search Files..." SearchQueryChanged="Search"></Azunt.Components.Search.SearchBox>
     </div>
 </div>
 
