@@ -47,9 +47,6 @@ public class FileRepository : IFileRepository
         await using var context = CreateContext();
         model.Created = DateTime.UtcNow;
         model.IsDeleted = false;
-
-        //model.Category = model.Category ?? "Files";
-
         context.Files.Add(model);
         await context.SaveChangesAsync();
         return model;
@@ -65,10 +62,7 @@ public class FileRepository : IFileRepository
         var maxDisplayOrder = await context.Files
             .Where(m => !m.IsDeleted)
             .MaxAsync(m => (int?)m.DisplayOrder) ?? 0;
-
         model.DisplayOrder = maxDisplayOrder + 1;
-
-        //model.Category = model.Category ?? "Files";
 
         context.Files.Add(model);
         await context.SaveChangesAsync();

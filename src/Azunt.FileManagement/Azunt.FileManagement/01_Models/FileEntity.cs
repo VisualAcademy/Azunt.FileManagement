@@ -75,6 +75,18 @@ namespace Azunt.FileManagement
         /// </summary>
         public string? ParentKey { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Category used to group or classify the file (optional)
+        /// </summary>
         public string? Category { get; set; }
+
+        /// <summary>
+        /// [3] Title of the file (required)
+        /// </summary>
+        [MaxLength(255)]
+        [Required(ErrorMessage = "Please enter a title.")]
+        [Display(Name = "Title")]
+        [Column(TypeName = "NVarChar(255)")]
+        public string Title { get; set; } = string.Empty;
     }
 }

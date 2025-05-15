@@ -57,7 +57,6 @@ public partial class ModalForm : ComponentBase
     #endregion
 
     #region Lifecycle
-
     protected override void OnParametersSet()
     {
         if (ModelSender != null)
@@ -69,7 +68,9 @@ public partial class ModalForm : ComponentBase
                 Active = ModelSender.Active,
                 Created = ModelSender.Created,
                 CreatedBy = ModelSender.CreatedBy,
-                FileName = ModelSender.FileName
+                FileName = ModelSender.FileName,
+                Category = ModelSender.Category,
+                Title = ModelSender.Title
             };
         }
         else
@@ -77,7 +78,6 @@ public partial class ModalForm : ComponentBase
             ModelEdit = new FileEntity();
         }
     }
-
     #endregion
 
     #region Event Handlers
@@ -120,6 +120,7 @@ public partial class ModalForm : ComponentBase
         ModelSender.ParentKey = ParentKey;
         ModelSender.ParentId = ParentId;
         ModelSender.Category = Category;
+        ModelSender.Title = ModelEdit.Title; 
 
         if (ModelSender.Id == 0)
         {

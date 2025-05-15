@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
 
         <!-- 버전 정보 -->
-        <VersionPrefix>1.0.2</VersionPrefix>
+        <VersionPrefix>1.0.3</VersionPrefix>
         <VersionSuffix></VersionSuffix>
 
         <!-- NuGet 기본 정보 -->
