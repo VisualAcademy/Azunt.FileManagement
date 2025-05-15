@@ -84,9 +84,9 @@ namespace Azunt.FileManagement
         /// [3] Title of the file (required)
         /// </summary>
         [MaxLength(255)]
-        [Required(ErrorMessage = "Please enter a title.")]
+        //[Required(ErrorMessage = "Please enter a title.")]
         [Display(Name = "Title")]
         [Column(TypeName = "NVarChar(255)")]
-        public string Title { get; set; } = string.Empty;
+        public string? Title { get; set; } = string.Empty;
     }
 }
