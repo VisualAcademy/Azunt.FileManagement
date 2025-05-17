@@ -20,7 +20,7 @@ public static class FileServicesRegistrationExtensions
     public static void AddDependencyInjectionContainerForFileApp(
         this IServiceCollection services,
         string connectionString,
-        RepositoryMode mode = RepositoryMode.EfCore,
+        RepositoryMode mode = Azunt.Models.Enums.RepositoryMode.EfCore,
         ServiceLifetime dbContextLifetime = ServiceLifetime.Transient)
     {
         switch (mode)
