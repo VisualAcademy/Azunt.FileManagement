@@ -45,10 +45,13 @@ builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSe
 var defaultConnStr = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("DefaultConnection is missing in configuration.");
 
+
+#region FileManagement
 builder.Services.AddDependencyInjectionContainerForFileApp(defaultConnStr);
 builder.Services.AddTransient<FileAppDbContextFactory>();
-
 builder.Services.AddScoped<IFileStorageService, Azunt.Web.Components.Pages.FilesPages.Services.AzureBlobStorageService>();
+#endregion
+
 
 var app = builder.Build();
 
