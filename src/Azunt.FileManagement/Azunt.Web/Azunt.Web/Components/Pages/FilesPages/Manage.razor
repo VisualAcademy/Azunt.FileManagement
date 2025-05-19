@@ -37,8 +37,12 @@
                     </colgroup>
                     <thead class="thead-light">
                         <tr>
-                            <th class="text-center text-nowrap">Created</th>
-                            <th class="text-center text-nowrap">Title</th>
+                            <th class="text-center text-nowrap" @onclick="@(() => SortBy("Created"))">
+                                Created <Azunt.Components.Sorting.SortOrderArrow SortColumn="Created" SortOrder="@sortOrder" />
+                            </th>
+                            <th class="text-center text-nowrap" @onclick="@(() => SortBy("Title"))">
+                                Title <Azunt.Components.Sorting.SortOrderArrow SortColumn="Title" SortOrder="@sortOrder"></Azunt.Components.Sorting.SortOrderArrow>
+                            </th>
                             <th class="text-center text-nowrap" @onclick="SortByName" style="cursor: pointer;">
                                 Name <Azunt.Components.Sorting.SortOrderArrow SortColumn="Name" SortOrder="@sortOrder"></Azunt.Components.Sorting.SortOrderArrow>
                             </th>

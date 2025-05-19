@@ -110,22 +110,6 @@ public class FileRepositoryDapper : IFileRepository
         return new Azunt.Models.Common.ArticleSet<FileEntity, int>(paged, filtered.Count());
     }
 
-    public async Task<Azunt.Models.Common.ArticleSet<FileEntity, long>> GetAllAsync<TParentIdentifier>(FilterOptions<TParentIdentifier> options)
-    {
-        var all = await GetAllAsync();
-        var filtered = all
-            .Where(m => string.IsNullOrWhiteSpace(options.SearchQuery)
-                     || (m.Name != null && m.Name.Contains(options.SearchQuery)))
-            .ToList();
-
-        var paged = filtered
-            .Skip(options.PageIndex * options.PageSize)
-            .Take(options.PageSize)
-            .ToList();
-
-        return new Azunt.Models.Common.ArticleSet<FileEntity, long>(paged, filtered.Count);
-    }
-
     public async Task<bool> MoveUpAsync(long id)
     {
         const string getCurrent = "SELECT Id, DisplayOrder FROM Files WHERE Id = @Id AND IsDeleted = 0";

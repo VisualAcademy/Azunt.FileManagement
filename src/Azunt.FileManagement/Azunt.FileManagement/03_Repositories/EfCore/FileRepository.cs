@@ -149,6 +149,12 @@ public class FileRepository : IFileRepository
         {
             "Name" => query.OrderBy(m => m.Name),
             "NameDesc" => query.OrderByDescending(m => m.Name),
+            "Created" => query.OrderBy(m => m.Created),
+            "CreatedDesc" => query.OrderByDescending(m => m.Created),
+            "Title" => query.OrderBy(m => m.Title),
+            "TitleDesc" => query.OrderByDescending(m => m.Title),
+            "Category" => query.OrderBy(m => m.Category),
+            "CategoryDesc" => query.OrderByDescending(m => m.Category),
             "DisplayOrder" => query.OrderBy(m => m.DisplayOrder),
             _ => query.OrderBy(m => m.DisplayOrder)
         };
@@ -160,29 +166,6 @@ public class FileRepository : IFileRepository
             .ToListAsync();
 
         return new Azunt.Models.Common.ArticleSet<FileEntity, int>(items, totalCount);
-    }
-
-    public async Task<Azunt.Models.Common.ArticleSet<FileEntity, long>> GetAllAsync<TParentIdentifier>(
-        FilterOptions<TParentIdentifier> options)
-    {
-        await using var context = CreateContext();
-        var query = context.Files
-            .Where(m => !m.IsDeleted)
-            .AsQueryable();
-
-        if (!string.IsNullOrEmpty(options.SearchQuery))
-        {
-            query = query.Where(m => m.Name != null && m.Name.Contains(options.SearchQuery));
-        }
-
-        var totalCount = await query.CountAsync();
-        var items = await query
-            .OrderBy(m => m.DisplayOrder)
-            .Skip(options.PageIndex * options.PageSize)
-            .Take(options.PageSize)
-            .ToListAsync();
-
-        return new Azunt.Models.Common.ArticleSet<FileEntity, long>(items, totalCount);
     }
 
     public async Task<bool> MoveUpAsync(long id)

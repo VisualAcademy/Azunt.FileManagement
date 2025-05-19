@@ -191,6 +191,31 @@ public partial class Manage : ComponentBase
 
         await DisplayData();
     }
+
+    protected async void SortBy(string column)
+    {
+        // 이미 다른 컬럼 정렬 중이면 초기화
+        if (!sortOrder.StartsWith(column))
+        {
+            sortOrder = "";
+        }
+
+        // 토글 방식으로 정렬 상태 전환
+        if (sortOrder == "")
+        {
+            sortOrder = column;
+        }
+        else if (sortOrder == column)
+        {
+            sortOrder = $"{column}Desc";
+        }
+        else
+        {
+            sortOrder = "";
+        }
+
+        await DisplayData();
+    }
     #endregion
 
     #region User Info
