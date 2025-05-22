@@ -62,6 +62,11 @@ public partial class Manage : ComponentBase
     {
         if (firstRender)
         {
+            await JSRuntimeInjector.InvokeVoidAsync("Azunt.UI.applyTruncation", ".text-truncate-name", 50, 350, true);
+        }
+
+        if (firstRender)
+        {
             timeZoneOffsetMinutes = await JSRuntimeInjector.InvokeAsync<int>("Azunt.TimeZone.getLocalOffsetMinutes");
             StateHasChanged(); // UI에 반영되도록
         }

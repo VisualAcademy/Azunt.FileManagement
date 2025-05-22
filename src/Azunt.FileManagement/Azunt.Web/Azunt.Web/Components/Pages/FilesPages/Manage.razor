@@ -74,7 +74,7 @@
                                 <tr>
                                     <td class="text-center text-nowrap small">@Dul.DateTimeUtility.ShowTimeOrDate(m.Created.UtcDateTime.AddMinutes(-timeZoneOffsetMinutes))</td>
                                     <td class="text-nowrap">@m.Title</td>
-                                    <td class="text-nowrap">@m.Name</td>
+                                    <td class="text-nowrap"><span class=" text-truncate-name">@m.Name</span></td>
                                     <td class="text-center text-nowrap">
                                         @if (!string.IsNullOrEmpty(m.FileName))
                                         {
