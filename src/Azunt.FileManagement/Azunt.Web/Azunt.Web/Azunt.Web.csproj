@@ -10,14 +10,14 @@
     <ItemGroup>
         <ProjectReference Include="..\..\Azunt.FileManagement\Azunt.FileManagement.csproj" />
         <ProjectReference Include="..\Azunt.Web.Client\Azunt.Web.Client.csproj" />
-        <PackageReference Include="Azunt.Components" Version="1.0.2" />
+        <PackageReference Include="Azunt.Components" Version="1.0.3" />
         <PackageReference Include="Azure.Storage.Blobs" Version="12.24.0" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.4" />
         <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="9.0.4" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.4" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.4" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.4" />
-        <PackageReference Include="Azunt" Version="1.0.7" />
+        <PackageReference Include="Azunt" Version="1.1.2" />
         <PackageReference Include="Dapper" Version="2.1.66" />
         <PackageReference Include="Dul" Version="1.3.4" />
         <PackageReference Include="DulPager" Version="1.0.2" />
