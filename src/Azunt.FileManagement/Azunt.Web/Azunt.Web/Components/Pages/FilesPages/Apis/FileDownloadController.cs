@@ -1,21 +1,21 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-
-using Azunt.FileManagement;
-
+﻿using Azunt.FileManagement;
 // Open XML SDK
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using SS = DocumentFormat.OpenXml.Spreadsheet;
 
 namespace Azunt.Apis.Files
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Administrators")]
     public class FileDownloadController : ControllerBase
     {
         private readonly IFileRepository _repository;
